@@ -1,5 +1,5 @@
 DOCKER = test-php
-PHP_RUN = docker run -it --rm $(DOCKER) $(1)
+PHP_RUN = docker run --rm $(DOCKER) $(1)
 PHP_UNIT = $(call PHP_RUN, vendor/bin/phpunit $(1))
 
 build:
