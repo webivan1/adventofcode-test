@@ -2,7 +2,10 @@
     "name": "purple/code-challenge",
     "license": "MIT",
     "scripts": {
-        "start": "php src/public/index.php"
+        "start": "php src/public/index.php",
+        "test": "phpunit --testdox tests",
+        "code-style": "phpcs --ignore=*/vendor/* --standard=PSR12 /app",
+        "analyse-code": "phpstan analyse src tests"
     },
     "autoload": {
         "psr-4": {
