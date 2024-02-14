@@ -1,6 +1,9 @@
 {
     "name": "purple/code-challenge",
     "license": "MIT",
+    "scripts": {
+        "start": "php src/public/index.php"
+    },
     "autoload": {
         "psr-4": {
             "App\\": "src/",
