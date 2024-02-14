@@ -1,0 +1,25 @@
+name: Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build the Docker image
+        run: make build
+
+      - name: Check code-style
+        run: make code-style
+
+      - name: Analyse code
+        run: make analyse-code
+
+      - name: Unit test
+        run: make test
