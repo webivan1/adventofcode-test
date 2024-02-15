@@ -1,6 +1,6 @@
 DOCKER = test-php
 PHP_RUN = docker run --rm $(DOCKER) $(1)
-PHP_RUN_TTY = docker run -it --rm $(DOCKER) $(1)
+PHP_RUN_TTY = docker run -v ./:/app -it --rm $(DOCKER) $(1)
 
 build:
 	docker build -t $(DOCKER) .

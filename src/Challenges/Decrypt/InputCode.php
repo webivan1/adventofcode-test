@@ -2,13 +2,19 @@
 
 namespace App\Challenges\Decrypt;
 
-use App\Challenges\Decrypt\Enums\NumberEnum;
+use App\Challenges\Decrypt\Filters\Interfaces\FilterInterface;
 use App\Challenges\Decrypt\Interfaces\InputCodeInterface;
 
 class InputCode implements InputCodeInterface
 {
-    public function __construct(private readonly string $code)
+    /**
+     * @var FilterInterface[]
+     */
+    private readonly array $filters;
+
+    public function __construct(private readonly string $code, FilterInterface ...$filters)
     {
+        $this->filters = $filters;
     }
 
     public function findNumber(): int
@@ -18,18 +24,8 @@ class InputCode implements InputCodeInterface
          */
         $positions = [];
 
-        foreach (NumberEnum::cases() as $case) {
-            $len = strlen($case->name);
-
-            for ($i = 0; $i < strlen($this->code); $i++) {
-                if (is_numeric($this->code[$i])) {
-                    $positions[$i] = (int) $this->code[$i];
-                }
-
-                if (substr($this->code, $i, $len) === $case->name) {
-                    $positions[$i] = $case->value;
-                }
-            }
+        foreach ($this->filters as $filter) {
+            $positions = array_replace($positions, $filter->getPositions($this->code));
         }
 
         // Sort by position
